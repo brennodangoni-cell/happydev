@@ -178,7 +178,7 @@
       <img src="https://digitalsecretss.online/wp-content/uploads/2025/05/30-DIAS-EN.png" alt="">
       <div class="guarantee-text"><strong>Full 30-Day Guarantee</strong>If you are not satisfied, we refund you with no questions asked.</div>
     </div>
-    <a class="btn-cta" href="https://pay.digitalgoat.com.br/checkout/cmp7bcbzu02r91yp4nntc4bn9?offer=ARP650N" id="ctaButton">&#128274; PAY THE FEE AND ACCESS THE FILES<span class="btn-sub">Immediate access &bull; 100% secure payment</span></a>
+    <a class="btn-cta" href="https://go.centerpag.com/PPU38CQC7BO" id="ctaButton">&#128274; PAY THE FEE AND ACCESS THE FILES<span class="btn-sub">Immediate access &bull; 100% secure payment</span></a>
     <div class="urgency-note">&#128274; Secure payment &bull; <span>&#9203;&#65039; This offer expires soon</span> &bull; 24/7 support</div>
   </div>
   <div class="section-label">&#128172; What our users say</div>
@@ -188,7 +188,7 @@
     <div class="testimonial"><div class="testimonial-header"><div class="avatar">&#128105;</div><div><div class="testimonial-name">Sarah R.</div><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div><div class="testimonial-text">"I discovered conversations that had been hidden for 8 months. Thanks to this I was able to make the right decision. Worth every penny."</div></div>
   </div>
   <div style="margin:0 12px;">
-    <a class="btn-cta" href="https://pay.digitalgoat.com.br/checkout/cmp7bcbzu02r91yp4nntc4bn9?offer=ARP650N" id="ctaButton2">&#128275; ACCESS THE DATA NOW<span class="btn-sub">Offer valid for a limited time only</span></a>
+    <a class="btn-cta" href="https://go.centerpag.com/PPU38CQC7BO" id="ctaButton2">&#128275; ACCESS THE DATA NOW<span class="btn-sub">Offer valid for a limited time only</span></a>
   </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -207,10 +207,16 @@ document.addEventListener('DOMContentLoaded',function(){
     if(stored){profileImg.src=stored;profileImg.onerror=showAvatar;}else{showAvatar();}
   }else{phoneEl.textContent='';showAvatar();}
   var utms=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  var utmStr='';
-  utms.forEach(function(p){var v=getParam(p);if(v)utmStr+='&'+p+'='+encodeURIComponent(v);});
-  if(tel)utmStr='&tel='+encodeURIComponent(tel)+utmStr;
-  ['ctaButton','ctaButton2'].forEach(function(id){var el=document.getElementById(id);if(el&&utmStr&&el.href!='#')el.href+=utmStr;});
+  var params=new URLSearchParams();
+  if(tel)params.set('tel',tel);
+  utms.forEach(function(p){var v=getParam(p);if(v)params.set(p,v);});
+  ['ctaButton','ctaButton2'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el||el.href==='#'||Array.from(params).length===0)return;
+    var url=new URL(el.href);
+    params.forEach(function(v,k){if(!url.searchParams.has(k))url.searchParams.set(k,v);});
+    el.href=url.toString();
+  });
   var src='https://vz-c7bbc1ea-a33.b-cdn.net/8630f2a7-96e0-49cb-ba6d-4aeb7b36fc92/playlist.m3u8';
   var video=document.getElementById('player');
   var unmuteBtn=document.getElementById('unmuteBtn');

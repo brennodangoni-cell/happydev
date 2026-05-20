@@ -179,7 +179,7 @@
       <div class="guarantee-text"><strong>Garanzia Totale 30 Giorni</strong>Se non sei soddisfatto, ti rimborsiamo senza domande.</div>
     </div>
     <!-- LINK ATUALIZADO ABAIXO -->
-    <a class="btn-cta" href="https://pay.digitalgoat.com.br/checkout/cmp7b17th02eh1yp48jom625g?offer=ZQL8MMI" id="ctaButton">&#128274; PAGA E ACCEDI AI FILE<span class="btn-sub">Accesso immediato &bull; Pagamento 100% sicuro</span></a>
+    <a class="btn-cta" href="https://go.perfectpay.com.br/PPU38CQC7BS" id="ctaButton">&#128274; PAGA E ACCEDI AI FILE<span class="btn-sub">Accesso immediato &bull; Pagamento 100% sicuro</span></a>
     <div class="urgency-note">&#128274; Pagamento sicuro &bull; <span>&#9203;&#65039; Questa offerta scade presto</span> &bull; Supporto 24/7</div>
   </div>
   <div class="section-label">&#128172; Cosa dicono i nostri utenti</div>
@@ -190,7 +190,7 @@
   </div>
   <div style="margin:0 12px;">
     <!-- LINK ATUALIZADO ABAIXO -->
-    <a class="btn-cta" href="https://pay.digitalgoat.com.br/checkout/cmp7b17th02eh1yp48jom625g?offer=ZQL8MMI" id="ctaButton2">&#128275; ACCEDI AI DATI ORA<span class="btn-sub">Offerta valida solo per tempo limitato</span></a>
+    <a class="btn-cta" href="https://go.perfectpay.com.br/PPU38CQC7BS" id="ctaButton2">&#128275; ACCEDI AI DATI ORA<span class="btn-sub">Offerta valida solo per tempo limitato</span></a>
   </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -209,10 +209,16 @@ document.addEventListener('DOMContentLoaded',function(){
     if(stored){profileImg.src=stored;profileImg.onerror=showAvatar;}else{showAvatar();}
   }else{phoneEl.textContent='';showAvatar();}
   var utms=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  var utmStr='';
-  utms.forEach(function(p){var v=getParam(p);if(v)utmStr+='&'+p+'='+encodeURIComponent(v);});
-  if(tel)utmStr='&tel='+encodeURIComponent(tel)+utmStr;
-  ['ctaButton','ctaButton2'].forEach(function(id){var el=document.getElementById(id);if(el&&utmStr&&el.href!='#')el.href+=utmStr;});
+  var params=new URLSearchParams();
+  if(tel)params.set('tel',tel);
+  utms.forEach(function(p){var v=getParam(p);if(v)params.set(p,v);});
+  ['ctaButton','ctaButton2'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el||el.href==='#'||Array.from(params).length===0)return;
+    var url=new URL(el.href);
+    params.forEach(function(v,k){if(!url.searchParams.has(k))url.searchParams.set(k,v);});
+    el.href=url.toString();
+  });
   var src='https://vz-c7bbc1ea-a33.b-cdn.net/7e78a673-a718-4b0b-b726-409a8fe268ad/playlist.m3u8';
   var video=document.getElementById('player');
   var unmuteBtn=document.getElementById('unmuteBtn');
